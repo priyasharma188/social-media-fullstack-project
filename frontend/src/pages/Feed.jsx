@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../Feed.css";
 import axios from "axios";
 
-const API = "http://localhost:5000/api";
+const API = "https://social-media-backend-gydo.onrender.com/api";
 
 // A simple unique visitor ID stored in sessionStorage so likes are per-session
 const USER_ID = (() => {
