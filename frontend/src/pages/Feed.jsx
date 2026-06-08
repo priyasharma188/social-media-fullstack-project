@@ -143,7 +143,9 @@ export default function Feed() {
     setPosts((prev) => prev.filter((p) => p._id !== postId)); // optimistic UI update
     try {
       await axios.delete(`${API}/posts/${postId}`);
-    } catch {
+      console.log('Post deleted from database');
+    } catch (err) {
+      console.log('Deleted failed,reverting...',err);
       fetchPosts(); // Revert on fail
     }
   };
