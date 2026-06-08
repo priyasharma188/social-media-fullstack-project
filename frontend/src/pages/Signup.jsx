@@ -1,17 +1,46 @@
  import { Link } from 'react-router-dom';
  import { useState } from 'react';
+ import axios from 'axios';
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
-  const handleSignup = () => {
-    console.log(email, password, username);
-    setEmail("");
-    setPassword("");
-    setUsername("");
-  };
+ const handleSignup = async () => {
+if (
+!username.trim() ||
+!email.trim() ||
+!password.trim()
+) {
+alert("Please fill all fields");
+return;
+}
+
+try {
+const res = await axios.post(
+"http://localhost:5000/api/auth/signup",
+{
+username,
+email,
+password,
+}
+);
+
+alert(res.data.message);
+
+setUsername("");
+setEmail("");
+setPassword("");
+
+} catch (error) {
+alert(
+error.response?.data?.message ||
+"Signup Failed"
+);
+}
+};
+
 
   return (
     <div className="container">

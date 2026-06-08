@@ -1,20 +1,40 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (!email.trim() || !password.trim()) {
-      alert("Please fill in both email and password.");
-      return;
-    }
+  const handleLogin = async () => {
+if (!email.trim() || !password.trim()) {
+alert("Please fill in both email and password.");
+return;
+}
 
-    navigate("/feed");
-  };
+try {
+const res = await axios.post(
+"http://localhost:5000/api/auth/login",
+{
+email,
+password,
+}
+);
+
+alert(res.data.message);
+
+navigate("/feed");
+
+} catch (error) {
+alert(
+error.response?.data?.message ||
+"Login Failed"
+);
+}
+};
+
 
   return (
     <div className="container mt-5">
